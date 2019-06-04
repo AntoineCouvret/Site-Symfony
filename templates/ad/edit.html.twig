@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+{% block title %}Modification de l'annonce{% endblock %}
+{% form_theme form with ['bootstrap_4_layout.html.twig',_self] %}
+
+	{% block body %}
+	<div class="container">
+		<h1>Modification de l'annonce {{ad.title}}</h1>
+
+			{{ form_start(form) }}
+			
+			{{ form_row(form.title,{'label':"Titre de l'annonce", 'attr':{'placeholder':"Titre de l'annonce","title":"Titre avec un minimum de 10 caractères et un maximum de 50 caractères"}}) }}
+			{{ form_row(form.slug,{'label':"URL personnalisable", 'attr':{'placeholder':"Facultatif"}}) }}
+			{{ form_row(form.price,{'label':"Prix", 'attr':{'placeholder':""}}) }}
+			{{ form_row(form.rooms,{'label':"Chambre(s)", 'attr':{'placeholder':"Nombre de chambre(s) dans le bien"}}) }}
+			{{ form_row(form.introduction,{'label':"Accroche", 'attr':{'placeholder':"résumé de l'annonce"}}) }}
+			{{ form_row(form.content,{'label':"Annonce", 'attr':{'placeholder':"Descriptif complet du bien"}}) }}
+			{{ form_row(form.coverImage,{'label':"Image principale", 'attr':{'placeholder':"Image d'entête"}}) }}
+			{{ form_row(form.images)}}
+			<button type="button" class="btn btn-success" id="add_image">Ajouter une image</button><br><br>
+
+			<button type="submit" class="btn btn-success">Enregistrer l'annonce</button>
+
+
+
+			{{ form_end(form) }}
+
+
+	</div>
+
+
+
+	{% endblock %}
+
+
+
+	{% block _annonce_images_entry_row %}
+		<div class="row" id="{{id}}">
+			<div class="col">
+				{{form_row(form.url,{'label':false, 'attr':{'placeholder':"URL de l'image"}}) }}
+			</div>
+			<div class="col">
+				{{form_row(form.caption,{'label':false, 'attr':{'placeholder':"Légende de l'image"}}) }}
+			</div>
+			<div class="col-2">
+				<button type="button" class="btn btn-danger del_image" data-block="{{id}}">X</button>
+			</div>
+		</div>
+
+	{% endblock %}
+
+
+	{% block javascripts %}
+
+		<script type="text/javascript">
+
+			// Variable globale qui compte le nombre de form.image (entrée) déjà existante
+			var counter = {{ form.images | length }};
+
+
+		$("#add_image").click(function(){
+
+			// console.log(counter);
+			// counter=counter+1;
+
+			// on récupère le prototype
+			var tmpl = $("#annonce_images").data("prototype");
+			//console.log(tmpl);
+
+			// on remplace le__name__ par la valeur du counter
+			tmpl = tmpl.replace(/__name__/g,counter);
+			//console.log(tmpl);
+			counter=counter+1;
+
+			// on ajoute le prototype modifié
+			$("#annonce_images").append(tmpl);
+		
+			deleteBlock();
+		})
+
+		function deleteBlock(){
+			$(".del_image").click(function(){
+
+				var bloc = $(this).data("block");
+
+				$("#"+bloc).remove();
+
+
+			})
+
+		}
+
+deleteBlock();
+
+
+
+
+		</script>
+
+	{% endblock %}

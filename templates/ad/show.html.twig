@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+{% block title %}Toutes nos Annonces{% endblock %}
+
+	{% block body %}
+{# 		{% for image in ad.images %}
+			{{dump (image)}}
+		{% endfor %} #}
+
+	{# 	{{dump (app.flashes)}} #}
+
+		<div class="container-fluid p-5">
+
+	{# Texte d'intro #}
+
+				<h3>{{ad.title}}</h3>
+				<div class="row">
+						<div class="col-3">
+							<a href="{{path('booking_create',{'slug':ad.slug})}}" class="btn btn-secondary btn-sm" role="button" aria-pressed="true">Réserver</a>
+						</div>
+						<div class="col-5 ml-auto text-right">
+							{% if app.user and app.user == ad.author %}
+								<a href="{{path('ads_edit',{'slug':ad.slug})}}" class="btn btn-secondary btn-sm" role="button" aria-pressed="true">Modifier</a>
+								<a href="{{path('ads_delete',{'slug':ad.slug})}}" class="btn btn-danger btn-sm" role="button" aria-pressed="true" onclick="return confirm ('Etes vous sur de vouloir supprimer l\'annonce ?')">Supprimer</a>
+							{% endif %}
+						</div>
+						<div class="col-4">
+						</div>
+				</div>
+				<div class="row">
+					<div class="col-md-8">
+						<div class="card mb-4 shadow-sm">
+							<img src="{{ad.coverImage}}"><text x="50%" y="50%" fill="#eceeef" dy=".3em">Prix: {{ad.price}}€</text>
+							</img>
+							<div class="card-body">
+								<p class="card-text">Chambre(s): {{ad.rooms}} <br>
+									{{ad.introduction | raw}}</p>
+									<p class="card-text">{{ad.content | raw}}</p>
+							</div>
+
+		{# Carousel #}
+							<div id="carouselExampleCaptions" class="carousel slide col-12" data-ride="carousel">
+								<ol class="carousel-indicators">
+									{% for image in ad.images %}
+										<li data-target="#carouselExampleCaptions" data-slide-to="{{loop.index0}}" {% if (loop.first) %}class="active">{% endif %}</li>
+										{% endfor %}
+								</ol>
+										<div class="carousel-inner">
+											{% for image in ad.images %}
+												<div class="carousel-item {% if (loop.first) %} active {% endif %}">
+													<img src="{{ image.url }}" class="d-block w-100" alt="...">
+													<div class="carousel-caption d-none d-md-block">
+														<h5>{{ ad.title }}</h5>
+														<p>{{ image.caption }}</p>
+													</div>
+												</div>
+											{% endfor %}
+										</div>
+
+										<a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+											<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+											<span class="sr-only">Précédent</span>
+										</a>
+										<a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+											<span class="carousel-control-next-icon" aria-hidden="true"></span>
+											<span class="sr-only">Suivant</span>
+										</a>
+									</div> 	{# Carousel - fin #}
+									<br>
+								</div>
+
+					</div>
+				
+					<div class="col-md-4">
+						<div class="card mb-4 shadow-sm">
+							<div class="row align-items-center">
+							    <div class="col-2">
+							    	<a href = "{{ path('user_show',{'slug':ad.author.slug} )}}">
+							    	<img src="{{ad.author.picture}}" class="rounded mx-auto d-block" >
+							    	</a>
+							    </div>
+							    <div class="col-10">
+							    	<h5>Maison vendue par : <a href = "{{ path('user_show',{'slug':ad.author.slug} )}}">{{ad.author.firstName}} {{ad.author.lastName}}</a></br> 
+									<a href = "{{ path('user_show',{'slug':ad.author.slug} )}}">
+									<span class="badge badge-secondary">{{ad.author.ads | length}} annonces</span></h5>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+
+
+
+
+
+
+
+			{% endblock %}

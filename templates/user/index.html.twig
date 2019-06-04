@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+{% block title %}Profil de {{user.firstName}} {{user.lastName}}{% endblock %}
+
+	{% block body %}
+		<div class="container">
+			{# {{dump(user)}} #}
+			<h1>Profil de {{user.firstName}} {{user.lastName}}</h1>
+			<div class="row">
+				<div class="col-3">
+					<img src="{{user.picture}}"><br>
+					<span class="badge badge-info">Annonce(s): {{user.ads | length}}</span>
+				</div>
+				<div class="col-6">
+
+					{{user.description | striptags('<br><p>')}} {# permet de supprimer toutes les lignes de codes sauf celle que l'on indique dans les parenthèse #}					
+				</div>
+				<div class="3">
+					{% if user is same as (app.user) %}
+						<a href="{{path('account_profile')}}" class="btn btn-primary my-1">
+							Modifier mes informations
+						</a><br>
+						<a href="{{path('account_password')}}" class="btn btn-primary my-1">
+							Modifier le mot de passe
+						</a><br>
+					{% endif %}
+				</div>
+			</div>
+
+			<h2>Les annonces de {{user.firstName}} {{user.lastName}}</h2>
+			<div class="row">
+				{# on a repris le contenu de la page ad/index.html // idéalement il faudrait éviter de dupliquer le contenu mais faire un fichier exterieur partial et faire un include dans chacune des 2 pages  #}
+				{% if (user.ads | length) > 0 %}
+					{% for ad in user.ads %}
+						{% include ('ad/_ad.html.twig') %}
+					{% endfor %}
+				{% else %}
+					<div class="col-md-3">
+						<div class="alert alert-warning">
+							Vous n'avez pas d'annonce !
+						</div>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+{% endblock %}

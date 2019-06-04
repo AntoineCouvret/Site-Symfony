@@ -1,0 +1,21 @@
+					<div class="col-md-4">
+						<div class="card mb-4 shadow-sm">
+							<img src="{{ad.coverImage}}" ><text x="50%" y="50%" fill="#eceeef" dy=".3em">{{ad.title}}<br>{{ad.price}}€</text>
+						</img>
+						<div class="card-body">
+							<p class="card-text">
+								Chambre(s): {{ad.rooms}} <br>
+								{{ad.content | raw}}
+							</p>
+							<div class="d-flex justify-content-between align-items-center">
+								<div class="btn-group">
+									<button type="button" class="btn btn-sm btn-outline-secondary"><a href="{{path('ads_show', {'slug':ad.slug})}}">En savoir plus</a></button>
+									{% if app.user and app.user == ad.author %}
+										<button type="button" class="btn btn-sm btn-outline-secondary"><a href="{{path('ads_edit',{'slug':ad.slug})}}">Modifier</a></button>
+										<button type="button" class="btn btn-sm btn-outline-secondary" ><a href="{{path('ads_delete',{'slug':ad.slug})}}" onclick="return confirm ('Etes vous sur de vouloir supprimer l\'annonce ?')">Supprimer</a></button>
+									{% endif %}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>

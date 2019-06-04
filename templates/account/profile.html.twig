@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% block title %}Profile{% endblock %}
+{% form_theme form with ['bootstrap_4_layout.html.twig',_self] %}
+
+	{% block body %}
+	<div class="container">
+		<h1>Modifier votre profile</h1>
+		<h1>AJOUTER LES CONTRAINTES SERVEUR</h1>
+			{{ form_start(form) }}
+			
+			{{ form_row(form.firstName,{'label':"Nom", 'attr':{'placeholder':"Votre nom"}}) }}
+			{{ form_row(form.lastName,{'label':"Prénom", 'attr':{'placeholder':"Votre prénom"}}) }}
+			{{ form_row(form.email,{'label':"Email", 'attr':{'placeholder':"Votre adresse e-mail"}}) }}
+			{{ form_row(form.introduction,{'label':"Introduction", 'attr':{'placeholder':"Présentation courte"}}) }}
+			{{ form_row(form.description,{'label':"Description", 'attr':{'placeholder':"Description complète"}}) }}
+			{{ form_row(form.picture,{'label':"Photo de votre avatar", 'attr':{'placeholder':"Url de votre avatar"}})}}
+			<br><br>
+
+			<button type="submit" class="btn btn-success">Valider les modifications</button>
+
+
+
+			{{ form_end(form) }}
+
+
+	</div>
+
+
+
+	{% endblock %}

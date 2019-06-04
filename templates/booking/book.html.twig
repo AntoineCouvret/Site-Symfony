@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+{% block title %}Réserver l'annonce {{ad.title}}{% endblock %}
+{% form_theme form with ['bootstrap_4_layout.html.twig',_self] %}
+
+	{% block body %}
+	<div class="container">
+		<h1>Réserver l'annonce {{ad.title}}</h1>
+		<h2>AJOUTER LES CONTRAINTES SERVEUR</h2>
+			{{ form_start(form) }}
+			
+				<div class="row">
+					<div class="col">
+						{{ form_row(form.startDate,{'label':"Date d'arrivée"}) }}
+					</div>
+					<div class="col">
+						{{ form_row(form.endDate,{'label':"Date de départ"}) }}
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						{{ form_row(form.comment,{'label':"Commentaire"}) }}
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<h4>Montant du séjour :</h4> 0 nuit(s) à {{ad.price}}€
+					</div>
+				</div>
+	
+				<button type="submit" class="btn btn-success">Réserver</button>
+	</div>	
+
+			{{ form_end(form) }}
+
+	{% endblock %}
