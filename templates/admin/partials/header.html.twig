@@ -1,6 +1,6 @@
         <!-- MENU DE NAV -->
 		        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-		  <a class="navbar-brand" href="#">Navbar</a>
+		  <a class="navbar-brand" href="#">Admin</a>
 		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
 		    <span class="navbar-toggler-icon"></span>
 		  </button>
@@ -8,20 +8,23 @@
 		  <div class="collapse navbar-collapse" id="navbarColor02">
 		    <ul class="navbar-nav mr-auto">
 		      <li class="nav-item active">
-		        <a class="nav-link" href="{{ path('homepage')}}"><i class="fas fa-home"></i> <span class="sr-only">(current)</span></a>
+		        <a class="nav-link" href="#"><i class="fas fa-columns"></i></a>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link" href="{{path('ads_index')}}">Nos Annonces</a>
+		        <a class="nav-link" href="#">Annonces</a>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link" href="#">Pricing</a>
+		        <a class="nav-link" href="{{ path('admin_ads_index')}}">Réservations</a>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link" href="#">About</a>
+		        <a class="nav-link" href="#">Utilisateurs</a>
 		      </li>
 		    </ul>
-
-
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item active">
+		        <a class="nav-link" href="{{ path('homepage')}}"><i class="fas fa-home">&nbsp;FrontEnd</i></a>
+		    	</li>
+			</ul>
 		   	<ul class="navbar-nav ml-auto">
 
 			  {% if (app.user) %} 	
@@ -31,19 +34,11 @@
 				    Mon compte
 					</button>
 					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-				    	<a class="dropdown-item" href="{{path("account_index")}}">Mon compte</a>
-				    	<a class="dropdown-item" href="{{path("ads_create")}}">Ajouter une annonce</a>
-				    	<a class="dropdown-item" href="{{path("account_bookings")}}">Mes réservations</a>
-				    	<a class="dropdown-item" href="{{path("account_profile")}}">Mon profil</a>
-				    	<a class="dropdown-item" href="{{path("account_password")}}">Mon mot de passe</a>
 				    	<a class="dropdown-item" href="{{path("account_logout")}}">Déconnexion</a>
 				  	</div>
 				</div>
 			  {% else %}
 
-			      <li class="nav-item">
-			        <a class="nav-link" href="{{path("account_register")}}">Inscription</a>
-			      </li>
 			      <li class="nav-item">
 			        <a class="nav-link" href="{{path("account_login")}}">Connexion</a>
 			      </li>

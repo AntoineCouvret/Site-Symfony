@@ -9,10 +9,10 @@
 							</p>
 							<div class="d-flex justify-content-between align-items-center">
 								<div class="btn-group">
-									<button type="button" class="btn btn-sm btn-outline-secondary"><a href="{{path('ads_show', {'slug':ad.slug})}}">En savoir plus</a></button>
+									<button type="button" class="btn btn-sm btn-outline-secondary"><a href="{{path('ads_show', {'slug':ad.slug})}}"><i class="fas fa-info-circle"></i></a></button>
 									{% if app.user and app.user == ad.author %}
-										<button type="button" class="btn btn-sm btn-outline-secondary"><a href="{{path('ads_edit',{'slug':ad.slug})}}">Modifier</a></button>
-										<button type="button" class="btn btn-sm btn-outline-secondary" ><a href="{{path('ads_delete',{'slug':ad.slug})}}" onclick="return confirm ('Etes vous sur de vouloir supprimer l\'annonce ?')">Supprimer</a></button>
+										<button type="button" class="btn btn-sm btn-outline-secondary"><a href="{{path('ads_edit',{'slug':ad.slug})}}"><i class="far fa-edit"></i></a></button>
+										<button type="button" class="btn btn-sm btn-outline-secondary" ><a href="{{path('ads_delete',{'slug':ad.slug})}}" onclick="return confirm ('Etes vous sur de vouloir supprimer l\'annonce ?')"><i class="fas fa-trash-alt"></i></a></button>
 									{% endif %}
 								</div>
 							</div>

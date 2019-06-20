@@ -95,7 +95,7 @@ class AppFixtures extends Fixture
 				}
 		
 		// Ajout d'option de résa
-		for($j=1; $j<=mt_rand(1,5); $j++) {
+		for($j=1; $j<=mt_rand(0,3); $j++) {
 			$booking = new Booking();
 			$booking -> setCreatedAt(new \DateTime())
 			-> setStartDate(new \DateTime("+5 days"))

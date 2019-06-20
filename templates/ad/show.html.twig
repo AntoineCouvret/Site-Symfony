@@ -19,8 +19,8 @@
 						</div>
 						<div class="col-5 ml-auto text-right">
 							{% if app.user and app.user == ad.author %}
-								<a href="{{path('ads_edit',{'slug':ad.slug})}}" class="btn btn-secondary btn-sm" role="button" aria-pressed="true">Modifier</a>
-								<a href="{{path('ads_delete',{'slug':ad.slug})}}" class="btn btn-danger btn-sm" role="button" aria-pressed="true" onclick="return confirm ('Etes vous sur de vouloir supprimer l\'annonce ?')">Supprimer</a>
+								<a href="{{path('ads_edit',{'slug':ad.slug})}}" class="btn btn-secondary btn-sm" role="button" aria-pressed="true"><i class="far fa-edit"></i></a>
+								<a href="{{path('ads_delete',{'slug':ad.slug})}}" class="btn btn-danger btn-sm" role="button" aria-pressed="true" onclick="return confirm ('Etes vous sur de vouloir supprimer l\'annonce ?')"><i class="fas fa-trash-alt"></i></a>
 							{% endif %}
 						</div>
 						<div class="col-4">

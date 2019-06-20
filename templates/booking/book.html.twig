@@ -1,11 +1,19 @@
 {% extends 'base.html.twig' %}
+
 {% block title %}Réserver l'annonce {{ad.title}}{% endblock %}
+
 {% form_theme form with ['bootstrap_4_layout.html.twig',_self] %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+
+{% endblock %}
+
 
 	{% block body %}
 	<div class="container">
 		<h1>Réserver l'annonce {{ad.title}}</h1>
-		<h2>AJOUTER LES CONTRAINTES SERVEUR</h2>
+		<h6>AJOUTER LES CONTRAINTES front (date de fin posterieure à la date d'entrée) + langue calendrier fr</h6>
 			{{ form_start(form) }}
 			
 				<div class="row">
@@ -23,7 +31,8 @@
 				</div>
 				<div class="row">
 					<div class="col">
-						<h4>Montant du séjour :</h4> 0 nuit(s) à {{ad.price}}€
+						<h4>Montant du séjour :</h4> <span id="days">0</span> nuit(s) à <span id="amount">0</span>€<br/>
+						soit, {{ad.price}}€ la nuit.
 					</div>
 				</div>
 	
@@ -33,3 +42,39 @@
 			{{ form_end(form) }}
 
 	{% endblock %}
+
+{% block javascripts %}
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#booking_startDate, #booking_endDate').datepicker({
+				format: "dd/mm/yyyy",
+				datesDisabled: [
+					{% for day in notAviableDays %}
+						"{{ day | date('d/m/Y') }}", 
+					{% endfor %} 
+				],
+				orientation: 'bottom right',
+				weekStart: 1,
+				startDate: new Date(),
+			});
+
+			$('#booking_startDate, #booking_endDate').on('change', calculateAmont);
+		});
+
+		function calculateAmont(){
+			const endDate = new Date($("#booking_endDate").val().replace(/([0-9]{2})\/([0-9]{2})\/([0-9]{4})/,'$3-$2-$1'));
+			const startDate = new Date($("#booking_startDate").val().replace(/([0-9]{2})\/([0-9]{2})\/([0-9]{4})/,'$3-$2-$1'));
+
+			if (startDate && endDate && startDate<endDate){
+				const DAY_TIME = 24*60*60*1000;
+				const interval = endDate.getTime()-startDate.getTime();
+				const days = interval/DAY_TIME;
+				const amount = days*{{ad.price}};
+
+				$('#days').text(days);
+				$('#amount').text(amount);
+			}
+		}
+	</script>
+{% endblock %}

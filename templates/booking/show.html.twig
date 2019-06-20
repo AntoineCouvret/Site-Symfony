@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+{% block title %}Réserver N°{{booking.id}}{% endblock %}
+
+
+	{% set difference = date(booking.endDate).diff(date(booking.startDate)) %}
+		{% set Nbr_nuit = difference.days %}
+
+
+			{% block body %}
+				<div class="container">
+					
+					<div class="row">
+						<div class="col-6">
+						<h1>Réservation N° {{booking.id}}</h1>
+							<ul class="list-group">
+								<li class="list-group-item">{{ booking.startDate|date("d/m/Y") }}</li>
+								<li class="list-group-item">{{ booking.endDate|date("d/m/Y") }}</li>
+								<li class="list-group-item">Nombre de nuit(s): {{Nbr_nuit}}</li>
+								<li class="list-group-item">Montant total: {{ booking.amount }}€</li>
+								<li class="list-group-item">Commentaire: {{ booking.comment|default("Aucun commentaire")}}</li>
+							</ul>
+						</div>
+						<div class="col-6">
+							<h1>{{booking.ad.title}}</h1>
+							<div class="row">
+								<div class="col-md">
+									<div class="card mb-4 shadow-sm">
+										<img src="{{booking.ad.coverImage}}"><text x="50%" y="50%" fill="#eceeef" dy=".3em">Prix: {{booking.ad.price}}€</text>
+									</img>
+									<div class="card-body">
+										<p class="card-text">Chambre(s): {{booking.ad.rooms}} <br>
+										{{booking.ad.introduction | raw}}</p>
+										<p class="card-text">{{booking.ad.content | raw}}</p>
+									</div>
+										<br>
+									</div>
+								</div>
+							</div>	
+
+							<br/>
+							<div class="row">
+								<div class="col-6">
+									<div class="card mb-4 shadow-sm">
+										<div class="row align-items-center">
+											<div class="col-2">
+												<a href = "{{ path('user_show',{'slug':booking.ad.author.slug} )}}">
+													<img src="{{booking.ad.author.picture}}" class="rounded mx-auto d-block" >
+												</a>
+											</div>
+											<div class="col">
+												<h5>Maison vendue par :</h5> <a href = "{{ path('user_show',{'slug':booking.ad.author.slug} )}}">{{booking.ad.author.firstName}} {{booking.ad.author.lastName}}</a></br> 
+												<a href = "{{ path('user_show',{'slug':booking.ad.author.slug} )}}">
+													<span class="badge badge-secondary">{{booking.ad.author.ads | length}} annonces</span></h5>
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								</div
+							{% endblock %}

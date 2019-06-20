@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BookingRepository")
@@ -29,11 +30,13 @@ class Booking
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\GreaterThanOrEqual("today UTC", message="Date utlérieure à aujourd'hui")
      */
     private $startDate;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\GreaterThan(propertyPath="startDate", message="la date de départ doit être supérieure à la date d'arrivée")
      */
     private $endDate;
 

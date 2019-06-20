@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+{% block title %}Vos réservations{% endblock %}
+
+
+{% block body %}
+<div class="container">
+	<h1>Mes réservations</h1>
+	{% for bookings in app.user.bookings %}
+	{#
+	{{ dump(bookings)}}
+	#}
+		{% set difference = date(bookings.endDate).diff(date(bookings.startDate)) %}
+		{% set Nbr_nuit = difference.days %}
+	<div class="row">
+		<div class="col">
+			{{bookings.ad.title}}
+		</div>
+		<div class="col">
+			<button type="button" class="btn btn-sm btn-outline-secondary"><a href="{{path('ads_show', {'slug':bookings.ad.slug})}}">revoir l'annonce</a></button>
+		</div>
+		<div class="col">
+			Montant de la réservation :{{bookings.amount}}€
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			date d'entrée : {{ bookings.startDate|date("d/m/Y") }}
+		</div>
+		<div class="col">
+			date de sortie : {{ bookings.endDate|date("d/m/Y") }}
+		</div>
+		<div class="col">
+			Nombre de nuit(s): {{Nbr_nuit}}
+		</div>
+	</div>
+	{% if bookings.comment == true %}
+	<div class="row">
+		<div class="col">
+			Mon commentaire : {{ bookings.comment }}
+		</div>
+	</div>
+	{% endif %}
+	{% endfor %}
+</div>
+
+	{#
+
+
+	Essaie sur l'ajout des anciennes réservations
+
+<div class="container">
+	<h1>Mes anciennes réservations</h1>
+	{% for bookings in app.user.bookings %}
+	{{ dump(bookings)}}
+	{% if date({{ bookings.endDate }}) < date('-2days') }} %}	
+		{% set difference = date(bookings.endDate).diff(date(bookings.startDate)) %}
+		{% set Nbr_nuit = difference.days %}
+	<div class="row">
+		<div class="col">
+			{{bookings.ad.title}}
+		</div>
+		<div class="col">
+			<button type="button" class="btn btn-sm btn-outline-secondary"><a href="{{path('ads_show', {'slug':bookings.ad.slug})}}">revoir l'annonce</a></button>
+		</div>
+		<div class="col">
+			Montant de la réservation :{{bookings.amount}}€
+		</div>
+		<div class="col">
+			date d'entrée : {{ bookings.startDate|date("d/m/Y") }}
+		</div>
+		<div class="col">
+			date de sortie : {{ bookings.endDate|date("d/m/Y") }}
+		</div>
+	</div>
+	{% endfor %}
+	{% endif %}
+</div>
+	#}
+
+
+{% endblock %}
